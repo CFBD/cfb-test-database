@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: cfb
+      POSTGRES_PASSWORD: testpass
+      POSTGRES_USER: cfb_user
+    ports:
+      - 5432
+    volumes:
+      - ./schema_dump.sql:/docker-entrypoint-initdb.d/setup_database.sql
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: cfb@test.com
+      PGADMIN_DEFAULT_PASSWORD: testpass
+    ports:
+      - "5050:80"
